@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deck CloudWalk · exemplo</title>
+<link rel="icon" href="./mark.svg" />
+<link rel="stylesheet" href="./deck.css" />
+<script>
+  // Nome no rodapé e rótulos do 3D nos modos flow e fail. Apague o que não usar.
+  window.DECK = {
+    name: "Exemplo",
+    flow: { lanes: ["P0", "P1", "P2", "P3", "P4", "P5"], producer: "<b>produtor</b> outbox", consumer: "<b>consumidor</b> serviço", error: "DLQ · item estacionado" },
+  };
+</script>
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="scrim" aria-hidden="true"></div>
+<div id="labels" aria-hidden="true"></div>
+<div id="bar"></div>
+
+<main id="stage">
+<!--
+  Este deck de exemplo mostra cada molde com um texto que explica quando usá-lo.
+  Para um deck novo: copie esta pasta, apague os slides que não servem, troque o texto.
+  data-scene escolhe o fundo 3D: cover · drift · block · layers · quiet · flow · fail · end · off
+  data-ch é o capítulo no rodapé. class="in" + --d (ms) é a entrada de cada elemento.
+-->
+
+  <!-- 1 · capa (cover) -->
+  <section class="slide cover" data-scene="cover" data-ch="">
+    <div class="pad">
+      <div class="brand in"><img src="./mark.svg" alt="" />Exemplo</div>
+      <h1 class="in" style="--d:150">Uma frase que diz o que muda para quem assiste.</h1>
+      <p class="lede in" style="--d:350">Uma linha de apoio: o que é, para quem é. Sem adjetivo vazio.</p>
+      <div class="logos in" style="--d:550">
+        <span>Para</span>
+        <img class="cw" src="./brands/cloudwalk.svg" alt="CloudWalk" />
+        <i class="sep"></i>
+        <img class="ip" src="./brands/infinitepay.svg" alt="InfinitePay" />
+        <img class="jim" src="./brands/jim.svg" alt="JIM" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · a mudança, com citações reais (drift) -->
+  <section class="slide" data-scene="drift" data-ch="O que mudou">
+    <div class="pad">
+      <h2 class="in">Comece pela mudança no mundo, não pelo produto.</h2>
+      <p class="lede in" style="--d:200">Algo mudou e criou vencedores e perdedores. Diga o que, em uma ou duas frases, com fatos que a plateia reconhece.</p>
+      <div class="voices">
+        <div class="voice in" style="--d:450">
+          <q>citação curta e verificável, copiada de cloudwalk.io ou infinitepay.io, com a fonte embaixo</q>
+          <div class="src"><img src="./brands/infinitepay.svg" alt="InfinitePay" />infinitepay.io</div>
+        </div>
+        <div class="voice in" style="--d:600">
+          <q>uma segunda voz, de outra fonte, que confirma a mesma mudança</q>
+          <div class="src"><img src="./brands/cloudwalk.svg" alt="CloudWalk" />cloudwalk.io</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · o que está em jogo (block) -->
+  <section class="slide" data-scene="block" data-ch="O que está em jogo">
+    <div class="pad" style="width:1000px">
+      <h2 class="in">Mostre o custo de não mudar.</h2>
+      <div class="cols" style="grid-template-columns:1fr; gap:48px; margin-top:72px">
+        <div class="col bad in" style="--d:250"><div class="rule">
+          <h3><span class="ico red"><i data-lucide="unplug"></i></span>O caminho de sempre</h3>
+          <p>O que acontece se nada mudar, dito do ponto de vista de quem assiste.</p>
+        </div></div>
+        <div class="col good in" style="--d:450"><div class="rule">
+          <h3><span class="ico accent"><i data-lucide="plug-zap"></i></span>O caminho proposto</h3>
+          <p>O que passa a ser possível. Uma frase, sem prometer o que ainda não existe.</p>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · aonde chegar (layers: o bloco se desfaz em camadas) -->
+  <section class="slide" data-scene="layers" data-ch="Aonde chegar">
+    <div class="pad" style="width:1000px">
+      <h2 class="in">A terra prometida em uma linha.</h2>
+      <ul class="items">
+        <li class="in" style="--d:250"><span class="ico"><i data-lucide="sliders-horizontal"></i></span><span class="t"><b>Primeiro ganho</b>Uma frase concreta: quem faz o quê, sem depender de quem.</span></li>
+        <li class="in" style="--d:400"><span class="ico"><i data-lucide="users"></i></span><span class="t"><b>Segundo ganho</b>Cada item tem rótulo em negrito e uma linha de explicação.</span></li>
+        <li class="in" style="--d:550"><span class="ico"><i data-lucide="scroll-text"></i></span><span class="t"><b>Terceiro ganho</b>Três itens. Quatro no máximo.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5 · cadeia com contratos (quiet) -->
+  <section class="slide" data-scene="quiet" data-ch="Como chegar · 1 integração">
+    <div class="pad">
+      <h2 class="in">Uma cadeia mostra onde a peça nova entra.</h2>
+      <p class="lede in" style="--d:200">Até cinco nós. O nó com class="new" é o seu; os outros já existem.</p>
+    </div>
+    <div class="chain">
+      <div class="node in" style="--d:300"><span class="ico"><i data-lucide="message-circle"></i></span><span class="nm">Entrada</span><span class="sub">o que chega</span></div>
+      <div class="node new in" style="--d:400"><span class="ico"><i data-lucide="layers"></i></span><span class="nm">Sua peça</span><span class="sub">o que é novo</span></div>
+      <div class="node in" style="--d:500"><span class="ico"><i data-lucide="radio-tower"></i></span><span class="nm">Sistema A</span><span class="sub">já existe</span></div>
+      <div class="node in" style="--d:600"><span class="ico"><i data-lucide="list-ordered"></i></span><span class="nm">Sistema B</span><span class="sub">já existe</span></div>
+      <div class="node in" style="--d:700"><span class="ico"><i data-lucide="bot"></i></span><span class="nm">Destino</span><span class="sub">não muda</span></div>
+    </div>
+    <div class="contract in" style="left:420px; --d:850"><div class="lock"><i data-lucide="lock"></i>Contrato A · entrada → sistema</div><span class="k">"event"</span>: "item_created",
+<span class="k">"id"</span>: "it_8812",
+<span class="k">"payload"</span>: { "texto": "exemplo" }</div>
+    <div class="contract in" style="left:1140px; --d:1000"><div class="lock"><i data-lucide="lock"></i>Contrato B · sistema → destino</div><span class="k">POST</span> /v1/items/it_8812
+<span class="k">"action"</span>: "done",
+<span class="k">"note"</span>: "…"</div>
+  </section>
+
+  <!-- 6 · fluxo nas trilhas (flow): texto à esquerda, 3D à direita -->
+  <section class="slide side" data-scene="flow" data-ch="Como chegar · 2 confiabilidade">
+    <div class="pad">
+      <h2 class="in" style="font-size:64px">O 3D explica a mecânica. O texto, a regra.</h2>
+      <ol class="steps">
+        <li class="in" style="--d:250"><span><b>Passo um.</b> Cada passo é uma frase com o nome técnico em negrito.</span></li>
+        <li class="in" style="--d:400"><span><b>Passo dois.</b> As trilhas à direita são partições, filas ou etapas paralelas.</span></li>
+        <li class="in" style="--d:550"><span><b>Passo três.</b> Mensagens da mesma cor seguem na mesma trilha, em ordem.</span></li>
+      </ol>
+      <div class="keybox in" style="--d:700">tópico exemplo.v1<br>trilha = hash(<b>chave</b>) mod 6</div>
+    </div>
+  </section>
+
+  <!-- 7 · falha e recuperação (fail) -->
+  <section class="slide side" data-scene="fail" data-ch="Como chegar · 2 confiabilidade">
+    <div class="pad">
+      <h2 class="in" style="font-size:64px">Quando algo falha, mostre a recuperação.</h2>
+      <ol class="steps">
+        <li class="in red" style="--d:250"><span><b>Tentativas</b> com espera crescente.</span></li>
+        <li class="in red" style="--d:400"><span><b>Fila de erro.</b> O item sai do caminho, com o erro anotado.</span></li>
+        <li class="in" style="--d:550"><span><b>O resto segue.</b> Só a chave com problema espera.</span></li>
+        <li class="in" style="--d:700"><span><b>Replay na ordem original</b>, sem duplicar.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 8 · estados (quiet) -->
+  <section class="slide" data-scene="quiet" data-ch="Como chegar · 3 responsabilidade">
+    <div class="pad">
+      <h2 class="in">Estados em linha mostram quem é o dono.</h2>
+    </div>
+    <div class="states">
+      <div class="st ai in" style="--d:250"><span class="who">IA</span><span class="nm">Estado um</span><span class="d">O que acontece aqui, em uma frase.</span></div>
+      <div class="st q in" style="--d:400"><span class="who">fila</span><span class="nm">Estado dois</span><span class="d">As cores dizem de quem é a vez.</span></div>
+      <div class="st h in" style="--d:550"><span class="who">pessoa</span><span class="nm">Estado três</span><span class="d">ai · q · h são as três classes.</span></div>
+      <div class="st ai in" style="--d:700"><span class="who">IA</span><span class="nm">Estado quatro</span><span class="d">Até cinco estados por linha.</span></div>
+    </div>
+    <p class="callout in" style="--d:900"><b>Uma frase de consequência embaixo.</b> É o que a plateia deve lembrar deste slide.</p>
+  </section>
+
+  <!-- 9 · processo + código (quiet) -->
+  <section class="slide" data-scene="quiet" data-ch="Como chegar · 4 operação">
+    <div class="pad">
+      <h2 class="in" style="max-width:900px">Processo à esquerda, código à direita.</h2>
+      <p class="lede in" style="--d:150; max-width:860px">Use quando o argumento é "isto é dado, não código". Mostre um exemplo real e curto.</p>
+      <div class="flow in" style="--d:350">
+        <div class="on">Rascunho<span>quem edita</span></div>
+        <div class="on">Teste<span>como valida</span></div>
+        <div class="on">Ativação<span>como entra</span></div>
+        <div>Volta<span>como desfaz</span></div>
+      </div>
+    </div>
+    <div class="rulebox in" style="--d:500"><span class="k">"name"</span>: <span class="s">"Regra de exemplo"</span>,
+<span class="k">"conditions"</span>: { "and": [
+  { "==": [{ "var": "tipo" }, "a"] },
+  { ">=": [{ "var": "total" }, 2] }
+]},
+<span class="k">"actions"</span>: [
+  { "set_queue": "fila_a" },
+  { "set_priority": 1 }
+]</div>
+  </section>
+
+  <!-- 10 · arquitetura de software (off) -->
+  <section class="slide" data-scene="off" data-ch="Como funciona · engenharia de software">
+    <div class="pad">
+      <h2 class="in" style="font-size:64px; max-width:1500px">A arquitetura inteira em quatro colunas.</h2>
+    </div>
+    <div class="arch-grid">
+      <div class="arch-col in" style="--d:150">
+        <div class="arch-h">Entrada</div>
+        <div class="arch-i"><span class="ico"><i data-lucide="message-circle"></i></span><div><b>Canal um</b><span>como autentica</span></div></div>
+        <div class="arch-i"><span class="ico"><i data-lucide="mail"></i></span><div><b>Canal dois</b><span>o que tem em comum</span></div></div>
+        <div class="arch-i"><span class="ico"><i data-lucide="copy-check"></i></span><div><b>Dedupe</b><span>mesma entrada, um registro</span></div></div>
+      </div>
+      <div class="arch-col core in" style="--d:300">
+        <div class="arch-h">Núcleo <span>a coluna destacada é a sua</span></div>
+        <div class="arch-i"><span class="ico accent"><i data-lucide="git-branch"></i></span><div><b>Estado</b><span>máquina de estados</span></div></div>
+        <div class="arch-i"><span class="ico accent"><i data-lucide="route"></i></span><div><b>Roteador</b><span>regras fixas, depois editáveis</span></div></div>
+        <div class="arch-i"><span class="ico accent"><i data-lucide="timer"></i></span><div><b>Prazos</b><span>relógios com pausa</span></div></div>
+        <div class="arch-i"><span class="ico accent"><i data-lucide="database"></i></span><div><b>Banco</b><span class="mono">tabela_a · tabela_b · outbox</span></div></div>
+      </div>
+      <div class="arch-col in" style="--d:450">
+        <div class="arch-h">Mensageria</div>
+        <div class="arch-i"><span class="ico"><i data-lucide="send"></i></span><div><b>Relay</b><span>publica o que já está gravado</span></div></div>
+        <div class="arch-i"><span class="ico"><i data-lucide="list-ordered"></i></span><div><b class="mono">exemplo.v1</b><span>chave por entidade, 6 partições</span></div></div>
+        <div class="arch-i"><span class="ico red"><i data-lucide="archive-x"></i></span><div><b>Fila de erro</b><span>tentativas e replay</span></div></div>
+      </div>
+      <div class="arch-col in" style="--d:600">
+        <div class="arch-h">Saídas <span>cada uma consome sozinha</span></div>
+        <div class="arch-i"><span class="ico"><i data-lucide="plug"></i></span><div><b>Integração</b><span>o sistema que já existe</span></div></div>
+        <div class="arch-i"><span class="ico"><i data-lucide="webhook"></i></span><div><b>Webhooks</b><span>assinados</span></div></div>
+        <div class="arch-i"><span class="ico"><i data-lucide="monitor"></i></span><div><b>Console</b><span>tempo real</span></div></div>
+      </div>
+    </div>
+    <div class="arch-bar in" style="--d:800">
+      <span><i data-lucide="activity"></i><b>Observabilidade</b> o que atravessa tudo</span>
+      <span><i data-lucide="scroll-text"></i><b>Auditoria</b> o que fica registrado</span>
+      <span><i data-lucide="shield-check"></i><b>Isolamento</b> o que separa clientes</span>
+    </div>
+  </section>
+
+  <!-- 11 · arquitetura de IA (off) -->
+  <section class="slide" data-scene="off" data-ch="Como funciona · engenharia de IA">
+    <div class="pad">
+      <h2 class="in" style="font-size:64px; max-width:1500px">Marque o que é regra e o que é modelo.</h2>
+      <p class="lede in" style="--d:120; font-size:28px; max-width:1500px">A plateia técnica quer saber onde o LLM decide e onde ele só escreve.</p>
+    </div>
+    <div class="ai-grid">
+      <ol class="ai-path in" style="--d:250">
+        <li><b>Classificação <span class="tag det">determinístico</span></b><span>o que roda sem modelo</span></li>
+        <li><b>Guarda <span class="tag det">determinístico</span></b><span>o que nunca passa pelo modelo</span></li>
+        <li><b>Resposta <span class="tag llm">LLM</span></b><span>tarefa <span class="mono">agent.reply</span>, saída validada</span></li>
+        <li><b>Conferência <span class="tag det">determinístico</span></b><span>quando a saída é retida para um humano</span></li>
+        <li><b>Apoio ao humano <span class="tag llm">LLM</span></b><span>resumo e sugestão; quem envia é a pessoa</span></li>
+      </ol>
+      <div class="ai-side">
+        <div class="router in" style="--d:400">
+          <div class="router-h">Roteador de modelos</div>
+          <div class="chainrow"><span>Provedor A</span><span>Provedor B</span><span>Provedor C</span><span class="free">Gratuito</span><span class="loc">local</span></div>
+          <ul>
+            <li><b>Ordem por tarefa</b>: qualidade ou velocidade</li>
+            <li><b>Disjuntor</b>: falhas seguidas tiram o provedor</li>
+            <li><b>Local no fim</b>: nunca fica sem resposta</li>
+          </ul>
+        </div>
+        <div class="measure in" style="--d:550">
+          <div class="router-h">Como se mede</div>
+          <div class="mrow"><b>Métrica principal</b><span>o que define sucesso</span></div>
+          <div class="mrow"><b>Métrica de qualidade</b><span>quanto o humano corrige</span></div>
+          <div class="mrow"><b>Telemetria</b><span class="mono">spans · latência por provedor</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 · provas: números + tela (off) -->
+  <section class="slide" data-scene="off" data-ch="Provas">
+    <div class="pad">
+      <h2 class="in">Prove com números que você mediu.</h2>
+      <div class="proof">
+        <div>
+          <div class="num in" style="--d:200"><div class="v mono">22 <span class="faint" style="font-size:32px">de 22</span></div><div class="l">número com unidade e o que ele mede</div></div>
+          <div class="num in" style="--d:330"><div class="v mono">8 <span class="faint" style="font-size:32px">etapas</span></div><div class="l">só números que você consegue mostrar rodando</div></div>
+          <div class="num in" style="--d:460"><div class="v mono">4,3 <span class="faint" style="font-size:32px">s</span></div><div class="l">vírgula decimal em pt-BR</div></div>
+        </div>
+        <div class="in" style="--d:600">
+          <div class="shot"><div class="placeholder">img/tela.png · captura real do produto, 16:10</div></div>
+          <div class="shot-cap">Legenda: o que olhar na captura.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 · demo em vídeo (off) -->
+  <section class="slide demo" data-scene="off" data-ch="Provas · demo">
+    <div class="pad">
+      <h2 class="in" style="font-size:56px">Uma demo por ideia, com marcas de tempo.</h2>
+      <ol class="beats"><li class="in" style="--d:250"><span class="mono">0:02</span>O que acontece no começo do vídeo.</li><li class="in" style="--d:400"><span class="mono">0:08</span>O momento que prova a ideia.</li><li class="in" style="--d:550"><span class="mono">0:15</span>O resultado na tela.</li></ol>
+    </div>
+    <div class="screen in" style="--d:200"><video data-demo="exemplo" src="./video/exemplo.mp4" poster="./video/poster-exemplo.jpg" muted playsinline loop preload="auto"></video><div class="placeholder">video/exemplo.mp4 · 16:10, sem áudio, até 30 s</div></div>
+  </section>
+
+  <!-- 14 · pedido (end) -->
+  <section class="slide" data-scene="end" data-ch="Próximo passo">
+    <div class="pad">
+      <h2 class="in">Termine com um pedido concreto.</h2>
+      <ol class="asks">
+        <li class="in" style="--d:250"><span class="n">01</span><h3>Primeiro pedido</h3><p>O que você precisa, de quem, e o que destrava.</p></li>
+        <li class="in" style="--d:400"><span class="n">02</span><h3>Segundo pedido</h3><p>Pedidos que a plateia pode atender nesta semana.</p></li>
+        <li class="in" style="--d:550"><span class="n">03</span><h3>Terceiro pedido</h3><p>Três no máximo.</p></li>
+      </ol>
+      <div class="logos in" style="position:absolute; left:128px; bottom:110px; --d:750">
+        <img src="./mark.svg" alt="" style="height:36px" /><span style="font-size:28px; font-weight:600">Exemplo</span>
+        <i class="sep"></i>
+        <img class="cw" src="./brands/cloudwalk.svg" alt="CloudWalk" />
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot" id="foot"><span id="ch"></span><span class="n" id="num"></span></footer>
+</main>
+
+<div id="ui">
+  <button id="prev" aria-label="Slide anterior">←</button>
+  <button id="next" aria-label="Próximo slide">→</button>
+  <button id="static" aria-pressed="false">Sem animação</button>
+  <button id="replay">Tocar de novo</button>
+  <span class="hint">setas · S sem animação · R repetir · F tela cheia</span>
+</div>
+
+<script src="./vendor/lucide.min.js"></script>
+<script type="module" src="./deck.js"></script>
+</body>
+</html>
